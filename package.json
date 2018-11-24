@@ -1,10 +1,17 @@
 {
   "name": "progress-estimator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Animated progress bars with estimated durations",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "license": "MIT",
   "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bvaughn/progress-estimator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bvaughn/progress-estimator/issues"
+  },
   "scripts": {
     "linc": "lint-staged",
     "lint": "eslint 'src/**/*.js'",
