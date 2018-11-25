@@ -5,6 +5,7 @@
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "license": "MIT",
   "main": "src/index.js",
+  "types": "types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/bvaughn/progress-estimator.git"
@@ -14,8 +15,8 @@
   },
   "scripts": {
     "linc": "lint-staged",
-    "lint": "eslint 'src/**/*.js'",
-    "prettier": "prettier --write 'src/**/*.js'"
+    "lint": "eslint 'src/**/*.js' && tsc --project types",
+    "prettier": "prettier --write 'src/**/*.js' 'types/**/*.ts'"
   },
   "lint-staged": {
     "src/**/*.js": "eslint 'src/**/*.js' --max-warnings 0"
@@ -32,6 +33,7 @@
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-prettier": "^3.0.0",
     "lint-staged": "^8.1.0",
-    "prettier": "^1.15.2"
+    "prettier": "^1.15.2",
+    "typescript": "^3.1.6"
   }
 }
