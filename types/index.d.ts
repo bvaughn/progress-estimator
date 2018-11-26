@@ -9,6 +9,7 @@ export interface ChalkTheme extends Chalk {
   asciiCompleted: Chalk;
   asciiInProgress: Chalk;
   estimate: Chalk;
+  estimateExceeded: Chalk;
   label: Chalk;
   percentage: Chalk;
   progressBackground: Chalk;

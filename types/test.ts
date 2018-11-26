@@ -10,6 +10,7 @@ const chalkTheme = chalk.constructor() as ChalkTheme;
 chalkTheme.asciiCompleted = chalkTheme;
 chalkTheme.asciiInProgress = chalkTheme;
 chalkTheme.estimate = chalkTheme;
+chalkTheme.estimateExceeded = chalkTheme;
 chalkTheme.label = chalkTheme;
 chalkTheme.percentage = chalkTheme;
 chalkTheme.progressBackground = chalkTheme;
