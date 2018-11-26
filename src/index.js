@@ -4,7 +4,7 @@ const { dots } = require('cli-spinners');
 const logUpdate = require('log-update');
 const { tmpdir } = require('os');
 
-const { humanize } = require('./humanize');
+const { humanizeActual, humanizeRemaining } = require('./humanize');
 const { getEstimate, updateEstimate } = require('./estimates');
 const { getPercentageString, getProgressBar } = require('./progress');
 
@@ -45,13 +45,23 @@ const logProgress = async (promise, label, estimatedDuration = 0) => {
 
       if (estimatedDuration > 0) {
         const elapsedTime = Date.now() - startTime;
-        const humanizedEstimate = humanize(estimatedDuration);
+        const remainingTime = estimatedDuration - elapsedTime;
+
+        let humanizedEstimate = humanizeRemaining(
+          elapsedTime,
+          estimatedDuration
+        );
+        humanizedEstimate =
+          remainingTime < 0
+            ? theme.estimateExceeded(humanizedEstimate)
+            : theme.estimate(humanizedEstimate);
+
         const progressBar = getProgressBar(
           elapsedTime / estimatedDuration,
           theme
         );
 
-        updateString += theme` ${progressBar} {estimate (${humanizedEstimate} estimated)}`;
+        updateString += theme` ${progressBar} {estimate ${humanizedEstimate}}`;
       }
 
       logUpdate(updateString);
@@ -67,10 +77,10 @@ const logProgress = async (promise, label, estimatedDuration = 0) => {
     // It will help us predict future runs more accurately.
     updateEstimate(label, actualDuration, storagePath);
 
-    const humanizedActual = humanize(actualDuration);
+    const humanizedActual = humanizeActual(actualDuration);
 
     logUpdate(
-      theme`{asciiCompleted ✓} {label ${label}} {estimate (${humanizedActual})}`
+      theme`{asciiCompleted ✓} {label ${label}} {estimate ${humanizedActual}}`
     );
     logUpdate.done();
 
