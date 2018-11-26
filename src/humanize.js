@@ -1,27 +1,52 @@
 'use strict';
 
-const humanize = ms => {
+const humanizeActual = msActual => {
   let unit;
-  let value;
-  if (ms < 1000) {
-    value = Math.round(ms);
+  if (msActual < 1000) {
+    msActual = Math.round(msActual);
     unit = 'ms';
-  } else if (ms < 60000) {
-    value = (ms / 1000).toFixed(1);
+  } else if (msActual < 60000) {
+    msActual = (msActual / 1000).toFixed(1);
     unit = 'secs';
-  } else if (ms < 3600000) {
-    value = (ms / 60000).toFixed(1);
+  } else if (msActual < 3600000) {
+    msActual = (msActual / 60000).toFixed(1);
     unit = 'mins';
   } else {
-    value = (ms / 3600000).toFixed(1);
+    msActual = (msActual / 3600000).toFixed(1);
     unit = 'hours';
   }
 
-  if (value % 1 === 0) {
-    return `${Math.round(value)} ${unit}`;
+  if (msActual % 1 === 0) {
+    return `${Math.round(msActual)} ${unit}`;
   } else {
-    return `${value} ${unit}`;
+    return `${msActual} ${unit}`;
   }
 };
 
-module.exports = { humanize };
+const humanizeRemaining = (msElapsed, msEstimated) => {
+  let unit;
+  if (msEstimated < 1000) {
+    msElapsed = Math.round(msElapsed);
+    msEstimated = Math.round(msEstimated);
+    unit = 'ms';
+  } else if (msEstimated < 60000) {
+    msElapsed = (msElapsed / 1000).toFixed(1);
+    msEstimated = (msEstimated / 1000).toFixed(1);
+    unit = 's';
+  } else if (msEstimated < 3600000) {
+    msElapsed = (msElapsed / 60000).toFixed(1);
+    msEstimated = (msEstimated / 60000).toFixed(1);
+    unit = 'm';
+  } else {
+    msElapsed = (msElapsed / 3600000).toFixed(1);
+    msEstimated = (msEstimated / 3600000).toFixed(1);
+    unit = 'h';
+  }
+
+  return `${msElapsed}${unit}, estimated ${msEstimated}${unit}`;
+};
+
+module.exports = {
+  humanizeActual,
+  humanizeRemaining
+};
