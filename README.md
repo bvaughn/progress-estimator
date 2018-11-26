@@ -2,7 +2,7 @@
 
 Logs a progress bar and estimation for how long a Promise will take to complete. This library tracks previous durations in order to provide more accurate estimates over time.
 
-![Demo](https://user-images.githubusercontent.com/29597/48972972-6757e780-efea-11e8-8f16-cd40e449b3a8.gif)
+![Demo](https://user-images.githubusercontent.com/29597/48986949-474e2400-f0cf-11e8-86d7-d201f8ad8eca.gif)
 
 ## Usage example
 
