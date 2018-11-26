@@ -21,6 +21,25 @@
     "src",
     "types"
   ],
+  "keywords": [
+    "ascii",
+    "busy",
+    "cli",
+    "console",
+    "duration",
+    "idle",
+    "indicator",
+    "list",
+    "loading",
+    "progress",
+    "promise",
+    "task",
+    "term",
+    "terminal",
+    "timing",
+    "unicode",
+    "wait"
+  ],
   "dependencies": {
     "chalk": "^2.4.1",
     "cli-spinners": "^1.3.1",
