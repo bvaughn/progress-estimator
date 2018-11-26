@@ -1,6 +1,6 @@
 {
   "name": "progress-estimator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Animated progress bars with estimated durations",
   "author": "Brian Vaughn <brian.david.vaughn@gmail.com>",
   "license": "MIT",
