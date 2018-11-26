@@ -26,10 +26,11 @@ async function run() {
   );
 }
 ```
+## API
 
-## Configuration
+### `createLogger(optionalConfiguration)`
 
-The following values are configurable via the named `configure` export. Note that all configuration is stored at the package level.
+This method is the default package export. It creates and configures a logger function (documented below). The following configuration options are supported. (They apply only to the logger instance that's returned.)
 
 | name | type | Description |
 | --- | --- | --- |
@@ -37,3 +38,13 @@ The following values are configurable via the named `configure` export. Note tha
 | `spinner` | object | Which spinner from the [`cli-spinners`](https://npmjs.com/package/cli-spinners) package to use. Defaults to `dots`. |
 | `storagePath` | string | Where to record durations between runs. Defaults to [`os.tmpdir()`](https://nodejs.org/api/os.html). |
 | `theme` | object | Custom [`chalk`](https://npmjs.com/package/chalk) theme. Look to the [default theme](https://github.com/bvaughn/progress-estimator/blob/master/src/theme.js) for a list of required keys. |
+
+### `logger(promise, labelString, options)`
+
+This method logs a progress bar and estimated duration for a promise. It requires at least two parameters– a `Promise` and a label (e.g. "Running tests"). The label is SHA1 hashed in order to uniquely identify the promise.
+
+An optional third parameter can be provided as well with the following keys:
+| name | type | Description |
+| --- | --- | --- |
+| `estimate` | Number | Estimated duration of promise. (This value is used initially, until a history of actual durations have been recorded.) |
+| `id` | String | Uniquely identifies the promise. This value is needed if the label string is not guaranteed to be unique. |

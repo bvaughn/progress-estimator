@@ -1,3 +1,6 @@
+# 0.2.2
+* Updated README for npmjs.com. (No actual code changes.)
+
 # 0.2.1
 * Gracefully handle `null` or `undefined` options parameter passed to logger function.
 
