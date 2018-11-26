@@ -1,7 +1,10 @@
+# 0.2.1
+* Gracefully handle `null` or `undefined` options parameter passed to logger function.
+
 # 0.2.0
 * Configuration function returns a configured logger, enabling custom configurations for multiple logger use cases.
 * Configuration supports optional custom logging function. Default implementation will continue to use the [`log-update`](https://www.npmjs.com/package/log-update) package.
-* Log function replaces 3rd parameter (previously the estimated duration) with an optional configuration object supporting multiple values (estimated duration and unique id).
+* Log function replaces third parameter (previously the estimated duration) with an optional configuration object supporting multiple values (estimated duration and unique id).
 
 # 0.1.3
 * Moved `clearInterval` into `finally` block to ensure proper cleanup if a Promise throws.

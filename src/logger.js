@@ -10,7 +10,7 @@ const configureLogger = configuration => {
   const { logFunction, spinner, storagePath, theme } = configuration;
 
   return async (promise, label, options) => {
-    let { estimate, id } = options;
+    let { estimate, id } = options || {};
 
     if (!id) {
       const shasum = createHash('sha1');
