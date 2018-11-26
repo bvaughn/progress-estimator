@@ -26,6 +26,8 @@ const configure = options => {
 };
 
 const logProgress = async (promise, label, estimatedDuration = 0) => {
+  let intervalId;
+
   try {
     // Refine our estimate using previous durations.
     estimatedDuration = getEstimate(label, estimatedDuration, storagePath);
@@ -36,7 +38,7 @@ const logProgress = async (promise, label, estimatedDuration = 0) => {
 
     let index = 0;
 
-    const id = setInterval(() => {
+    intervalId = setInterval(() => {
       index = ++index % frames.length;
 
       let updateString = theme`{asciiInProgress ${
@@ -69,8 +71,6 @@ const logProgress = async (promise, label, estimatedDuration = 0) => {
 
     const returnValue = await promise;
 
-    clearInterval(id);
-
     const actualDuration = Date.now() - startTime;
 
     // Record the actual duration for later.
@@ -89,6 +89,8 @@ const logProgress = async (promise, label, estimatedDuration = 0) => {
     logUpdate.clear();
 
     throw error;
+  } finally {
+    clearInterval(intervalId);
   }
 };
 
