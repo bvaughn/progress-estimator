@@ -1,6 +1,5 @@
 'use strict';
 
-const { createHash } = require('crypto');
 const { existsSync, mkdirSync, readFileSync, writeFileSync } = require('fs');
 const { join } = require('path');
 
@@ -21,15 +20,8 @@ const getEstimate = (id, estimatedDuration, storagePath) => {
   }
 };
 
-const getFilePath = (id, storagePath) => {
-  const shasum = createHash('sha1');
-  shasum.update(id);
-
-  return join(storagePath, shasum.digest('hex'));
-};
-
 const getPreviousDurations = (id, storagePath) => {
-  const path = getFilePath(id, storagePath);
+  const path = join(storagePath, id);
   if (existsSync(path)) {
     return readFileSync(path, 'utf8')
       .split('\n')
@@ -51,7 +43,7 @@ const updateEstimate = (id, duration, storagePath) => {
     durations.shift();
   }
 
-  const path = getFilePath(id, storagePath);
+  const path = join(storagePath, id);
   writeFileSync(path, durations.join('\n'));
 };
 

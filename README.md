@@ -7,20 +7,22 @@ Logs a progress bar and estimation for how long a Promise will take to complete.
 ## Usage example
 
 ```js
-const {logProgress, configure} = require('progress-estimator');
+const createLogger = require('progress-estimator');
 
-// Configuration is optional, but it's recommended to specify a storage location.
+// All configuration keys are optional, but it's recommended to specify a storage location.
 // Learn more about configuration options below.
-configure({
+const logger = createLogger({
   storagePath: join(__dirname, '.progress-estimator'),
 });
 
 async function run() {
-  await logProgress(promiseOne, "This promise has no initial estimate");
-  await logProgress(
+  await logger(promiseOne, "This is a promise");
+  await logger(
     promiseTwo,
-    "This promise is initially estimated to take 1 second",
-    1000
+    "This is another promise. I think it will take about 1 second",
+    {
+      estimate: 1000
+    }
   );
 }
 ```
@@ -31,6 +33,7 @@ The following values are configurable via the named `configure` export. Note tha
 
 | name | type | Description |
 | --- | --- | --- |
+| `logFunction` | Function | Custom logging function. Defaults to [`log-update`](https://npmjs.com/package/log-update). Must define `.done()` and `.clear()` methods. |
 | `spinner` | object | Which spinner from the [`cli-spinners`](https://npmjs.com/package/cli-spinners) package to use. Defaults to `dots`. |
 | `storagePath` | string | Where to record durations between runs. Defaults to [`os.tmpdir()`](https://nodejs.org/api/os.html). |
 | `theme` | object | Custom [`chalk`](https://npmjs.com/package/chalk) theme. Look to the [default theme](https://github.com/bvaughn/progress-estimator/blob/master/src/theme.js) for a list of required keys. |

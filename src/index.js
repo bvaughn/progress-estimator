@@ -4,97 +4,20 @@ const { dots } = require('cli-spinners');
 const logUpdate = require('log-update');
 const { tmpdir } = require('os');
 
-const { humanizeActual, humanizeRemaining } = require('./humanize');
-const { getEstimate, updateEstimate } = require('./estimates');
-const { getPercentageString, getProgressBar } = require('./progress');
+const configureLogger = require('./logger');
 
-// Default configuration
-let spinner = dots;
-let theme = require('./theme');
-let storagePath = `${tmpdir()}/progress-estimator`;
-
-const configure = options => {
-  if (options.storagePath) {
-    storagePath = options.storagePath;
-  }
-  if (options.theme) {
-    theme = options.theme;
-  }
-  if (options.spinner) {
-    spinner = options.spinner;
-  }
+const defaultConfiguration = {
+  logFunction: logUpdate,
+  spinner: dots,
+  storagePath: `${tmpdir()}/progress-estimator`,
+  theme: require('./theme')
 };
 
-const logProgress = async (promise, label, estimatedDuration = 0) => {
-  let intervalId;
-
-  try {
-    // Refine our estimate using previous durations.
-    estimatedDuration = getEstimate(label, estimatedDuration, storagePath);
-
-    const startTime = Date.now();
-
-    const { frames, interval } = spinner;
-
-    let index = 0;
-
-    intervalId = setInterval(() => {
-      index = ++index % frames.length;
-
-      let updateString = theme`{asciiInProgress ${
-        frames[index]
-      }} {label ${label}}`;
-
-      if (estimatedDuration > 0) {
-        const elapsedTime = Date.now() - startTime;
-        const remainingTime = estimatedDuration - elapsedTime;
-
-        let humanizedEstimate = humanizeRemaining(
-          elapsedTime,
-          estimatedDuration
-        );
-        humanizedEstimate =
-          remainingTime < 0
-            ? theme.estimateExceeded(humanizedEstimate)
-            : theme.estimate(humanizedEstimate);
-
-        const progressBar = getProgressBar(
-          elapsedTime / estimatedDuration,
-          theme
-        );
-
-        updateString += theme` ${progressBar} {estimate ${humanizedEstimate}}`;
-      }
-
-      logUpdate(updateString);
-    }, interval);
-
-    const returnValue = await promise;
-
-    const actualDuration = Date.now() - startTime;
-
-    // Record the actual duration for later.
-    // It will help us predict future runs more accurately.
-    updateEstimate(label, actualDuration, storagePath);
-
-    const humanizedActual = humanizeActual(actualDuration);
-
-    logUpdate(
-      theme`{asciiCompleted ✓} {label ${label}} {estimate ${humanizedActual}}`
-    );
-    logUpdate.done();
-
-    return returnValue;
-  } catch (error) {
-    logUpdate.clear();
-
-    throw error;
-  } finally {
-    clearInterval(intervalId);
-  }
+const createLogger = optionalConfiguration => {
+  return configureLogger({
+    ...defaultConfiguration,
+    ...optionalConfiguration
+  });
 };
 
-logProgress.configure = configure;
-logProgress.logProgress = logProgress;
-
-module.exports = logProgress;
+module.exports = createLogger;
