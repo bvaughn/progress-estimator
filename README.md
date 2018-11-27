@@ -4,6 +4,16 @@ Logs a progress bar and estimation for how long a Promise will take to complete.
 
 ![Demo](https://user-images.githubusercontent.com/29597/48986949-474e2400-f0cf-11e8-86d7-d201f8ad8eca.gif)
 
+## Installation
+
+```shell
+# use npm
+npm install progress-estimator
+
+# use yarn
+yarn add progress-estimator
+```
+
 ## Usage example
 
 ```js
