@@ -14,6 +14,7 @@
     "url": "https://github.com/bvaughn/progress-estimator/issues"
   },
   "scripts": {
+    "test": "node test.js",
     "lint": "eslint 'src/**/*.js' && tsc --project types",
     "prettier": "prettier --write 'src/**/*.js' 'types/**/*.ts'"
   },
