@@ -44,6 +44,7 @@ This method is the default package export. It creates and configures a logger fu
 This method logs a progress bar and estimated duration for a promise. It requires at least two parameters– a `Promise` and a label (e.g. "Running tests"). The label is SHA1 hashed in order to uniquely identify the promise.
 
 An optional third parameter can be provided as well with the following keys:
+
 | name | type | Description |
 | --- | --- | --- |
 | `estimate` | Number | Estimated duration of promise. (This value is used initially, until a history of actual durations have been recorded.) |
