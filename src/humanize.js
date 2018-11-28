@@ -1,19 +1,21 @@
 'use strict';
 const SECOND = 1000;
+const MINUTE = 60 * SECOND;
+const HOUR = 60 * MINUTE;
 
 const humanizeActual = msActual => {
   let unit;
-  if (msActual < SECOND * 1) {
+  if (msActual < SECOND) {
     msActual = Math.round(msActual);
     unit = 'ms';
-  } else if (msActual < 60 * SECOND) {
+  } else if (msActual < MINUTE) {
     msActual = (msActual / SECOND).toFixed(1);
     unit = 'secs';
-  } else if (msActual < 60 * 60 * SECOND) {
-    msActual = (msActual / (60 * SECOND)).toFixed(1);
+  } else if (msActual < HOUR) {
+    msActual = (msActual / MINUTE).toFixed(1);
     unit = 'mins';
   } else {
-    msActual = (msActual / (60 * 60 * SECOND)).toFixed(1);
+    msActual = (msActual / HOUR).toFixed(1);
     unit = 'hours';
   }
 
@@ -25,21 +27,21 @@ const humanizeActual = msActual => {
 
 const humanizeRemaining = (msElapsed, msEstimated) => {
   let unit;
-  if (msEstimated < SECOND * 1) {
+  if (msEstimated < SECOND) {
     msElapsed = Math.round(msElapsed);
     msEstimated = Math.round(msEstimated);
     unit = 'ms';
-  } else if (msEstimated < 60 * SECOND) {
+  } else if (msEstimated < MINUTE) {
     msElapsed = (msElapsed / SECOND).toFixed(1);
     msEstimated = (msEstimated / SECOND).toFixed(1);
     unit = 's';
-  } else if (msEstimated < 60 * 60 * SECOND) {
-    msElapsed = (msElapsed / (60 * SECOND)).toFixed(1);
-    msEstimated = (msEstimated / (60 * SECOND)).toFixed(1);
+  } else if (msEstimated < HOUR) {
+    msElapsed = (msElapsed / MINUTE).toFixed(1);
+    msEstimated = (msEstimated / MINUTE).toFixed(1);
     unit = 'm';
   } else {
-    msElapsed = (msElapsed / (60 * 60 * SECOND)).toFixed(1);
-    msEstimated = (msEstimated / (60 * 60 * SECOND)).toFixed(1);
+    msElapsed = (msElapsed / HOUR).toFixed(1);
+    msEstimated = (msEstimated / HOUR).toFixed(1);
     unit = 'h';
   }
 
