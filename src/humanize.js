@@ -19,9 +19,8 @@ const humanizeActual = msActual => {
 
   if (msActual % 1 === 0) {
     return `${Math.round(msActual)} ${unit}`;
-  } else {
-    return `${msActual} ${unit}`;
   }
+  return `${msActual} ${unit}`;
 };
 
 const humanizeRemaining = (msElapsed, msEstimated) => {
