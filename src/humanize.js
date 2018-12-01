@@ -1,21 +1,22 @@
 'use strict';
-const SECOND = 1000;
-const MINUTE = 60 * SECOND;
-const HOUR = 60 * MINUTE;
+
+const MS_PER_SECOND = 1000;
+const MS_PER_MINUTE = 60 * MS_PER_SECOND;
+const MS_PER_HOUR = 60 * MS_PER_MINUTE;
 
 const humanizeActual = msActual => {
   let unit;
-  if (msActual < SECOND) {
+  if (msActual < MS_PER_SECOND) {
     msActual = Math.round(msActual);
     unit = 'ms';
-  } else if (msActual < MINUTE) {
-    msActual = (msActual / SECOND).toFixed(1);
+  } else if (msActual < MS_PER_MINUTE) {
+    msActual = (msActual / MS_PER_SECOND).toFixed(1);
     unit = 'secs';
-  } else if (msActual < HOUR) {
-    msActual = (msActual / MINUTE).toFixed(1);
+  } else if (msActual < MS_PER_HOUR) {
+    msActual = (msActual / MS_PER_MINUTE).toFixed(1);
     unit = 'mins';
   } else {
-    msActual = (msActual / HOUR).toFixed(1);
+    msActual = (msActual / MS_PER_HOUR).toFixed(1);
     unit = 'hours';
   }
 
@@ -27,21 +28,21 @@ const humanizeActual = msActual => {
 
 const humanizeRemaining = (msElapsed, msEstimated) => {
   let unit;
-  if (msEstimated < SECOND) {
+  if (msEstimated < MS_PER_SECOND) {
     msElapsed = Math.round(msElapsed);
     msEstimated = Math.round(msEstimated);
     unit = 'ms';
-  } else if (msEstimated < MINUTE) {
-    msElapsed = (msElapsed / SECOND).toFixed(1);
-    msEstimated = (msEstimated / SECOND).toFixed(1);
+  } else if (msEstimated < MS_PER_MINUTE) {
+    msElapsed = (msElapsed / MS_PER_SECOND).toFixed(1);
+    msEstimated = (msEstimated / MS_PER_SECOND).toFixed(1);
     unit = 's';
-  } else if (msEstimated < HOUR) {
-    msElapsed = (msElapsed / MINUTE).toFixed(1);
-    msEstimated = (msEstimated / MINUTE).toFixed(1);
+  } else if (msEstimated < MS_PER_HOUR) {
+    msElapsed = (msElapsed / MS_PER_MINUTE).toFixed(1);
+    msEstimated = (msEstimated / MS_PER_MINUTE).toFixed(1);
     unit = 'm';
   } else {
-    msElapsed = (msElapsed / HOUR).toFixed(1);
-    msEstimated = (msEstimated / HOUR).toFixed(1);
+    msElapsed = (msElapsed / MS_PER_HOUR).toFixed(1);
+    msEstimated = (msEstimated / MS_PER_HOUR).toFixed(1);
     unit = 'h';
   }
 
