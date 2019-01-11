@@ -4,7 +4,7 @@ const { createHash } = require('crypto');
 
 const { humanizeActual, humanizeRemaining } = require('./humanize');
 const { getEstimate, updateEstimate } = require('./estimates');
-const { getPercentageString, getProgressBar } = require('./progress');
+const { getProgressBar } = require('./progress');
 
 const configureLogger = configuration => {
   const { logFunction, spinner, storagePath, theme } = configuration;
