@@ -18,6 +18,7 @@ yarn add progress-estimator
 
 ```js
 const createLogger = require('progress-estimator');
+const { join } = require('path');
 
 // All configuration keys are optional, but it's recommended to specify a storage location.
 // Learn more about configuration options below.
