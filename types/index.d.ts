@@ -1,37 +1,47 @@
 import { Chalk } from 'chalk';
 
-export interface Spinner {
-  interval: number;
-  frames: string[];
+declare namespace progressEstimator {
+  interface Spinner {
+    interval: number;
+    frames: string[];
+  }
+
+  interface ChalkTheme extends Chalk {
+    asciiCompleted: Chalk;
+    asciiInProgress: Chalk;
+    estimate: Chalk;
+    estimateExceeded: Chalk;
+    label: Chalk;
+    percentage: Chalk;
+    progressBackground: Chalk;
+    progressForeground: Chalk;
+  }
+
+  interface LogFunction {
+    (...text: string[]): void;
+    clear(): void;
+    done(): void;
+  }
+
+  interface Configuration {
+    logFunction?: LogFunction;
+    spinner?: Spinner;
+    storagePath?: string;
+    theme?: ChalkTheme;
+  }
+
+  interface LogOption {
+    estimate?: number;
+    id?: string;
+  }
+
+  interface ProgressEstimator {
+    <T>(promise: Promise<T>, label: string, options?: LogOption): Promise<T>;
+  }
 }
 
-export interface ChalkTheme extends Chalk {
-  asciiCompleted: Chalk;
-  asciiInProgress: Chalk;
-  estimate: Chalk;
-  estimateExceeded: Chalk;
-  label: Chalk;
-  percentage: Chalk;
-  progressBackground: Chalk;
-  progressForeground: Chalk;
-}
+declare function progressEstimator(
+  config?: progressEstimator.Configuration
+): progressEstimator.ProgressEstimator;
 
-export interface Configuration {
-  spinner?: Spinner;
-  storagePath?: string;
-  theme?: ChalkTheme;
-}
-
-export interface ProgressEstimator {
-  <T>(promise: Promise<T>, label: string, estimatedDuration?: number): Promise<
-    T
-  >;
-  configure(options: Configuration): void;
-  logProgress: ProgressEstimator;
-}
-
-export declare const configure: (options: Configuration) => void;
-export declare const logProgress: ProgressEstimator;
-
-declare const progressEstimator: ProgressEstimator;
-export default progressEstimator;
+export = progressEstimator;
