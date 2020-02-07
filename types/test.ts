@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import progressEstimator, { configure, logProgress, ChalkTheme } from '..';
+import createLogger, { ChalkTheme, LogFunction } from '..';
 
 // Test promises
 const stringPromise = new Promise<string>(resolve => resolve('hello'));
@@ -16,35 +16,42 @@ chalkTheme.percentage = chalkTheme;
 chalkTheme.progressBackground = chalkTheme;
 chalkTheme.progressForeground = chalkTheme;
 
-// Check `logProgress`
-const resultOne: Promise<string> = progressEstimator(
+// logFunction
+const logFunction: LogFunction = (...text: string[]) => {};
+logFunction.done = () => {};
+logFunction.clear = () => {};
+
+// Check `createLogger`
+const logger = createLogger();
+createLogger({
+  spinner: {
+    interval: 100,
+    frames: ['.', '']
+  }
+});
+createLogger({
+  storagePath: 'path/to/dir'
+});
+createLogger({
+  theme: chalkTheme
+});
+createLogger({
+  logFunction: logFunction
+});
+createLogger({
+  spinner: { interval: 100, frames: ['.', ''] },
+  storagePath: 'path/to/dir',
+  theme: chalkTheme,
+  logFunction: logFunction
+});
+
+const resultOne: Promise<string> = logger(
   stringPromise,
   'This promise has no initial estimate'
 );
-const resultTwo: Promise<number> = progressEstimator(
+const resultTwo: Promise<number> = logger(
   numberPromise,
   'This promise is initially estimated to take 1 second',
-  1000
+  { estimate: 1000 }
 );
-const resultThree: Promise<number> = logProgress(numberPromise, 'Valid export');
-
-// Check `configure`
-configure({
-  spinner: { interval: 100, frames: ['.', ''] }
-});
-configure({
-  storagePath: 'path/to/dir'
-});
-configure({
-  theme: chalkTheme
-});
-configure({
-  spinner: { interval: 100, frames: ['.', ''] },
-  storagePath: 'path/to/dir',
-  theme: chalkTheme
-});
-progressEstimator.configure({
-  spinner: { interval: 100, frames: ['.', ''] },
-  storagePath: 'path/to/dir',
-  theme: chalkTheme
-});
+const resultThree: Promise<number> = logger(numberPromise, 'Valid export');
