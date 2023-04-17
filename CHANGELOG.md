@@ -1,4 +1,7 @@
 # 0.3.1
+* Readme changes
+
+# 0.3.0
 * Updated TypeScript definitions. ([PR 17](https://github.com/bvaughn/progress-estimator/pull/17))
 
 # 0.2.2
