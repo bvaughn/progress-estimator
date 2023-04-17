@@ -4,6 +4,8 @@ Logs a progress bar and estimation for how long a Promise will take to complete.
 
 ![Demo](https://user-images.githubusercontent.com/29597/48986949-474e2400-f0cf-11e8-86d7-d201f8ad8eca.gif)
 
+### 🎉 [Become a sponsor](https://github.com/sponsors/bvaughn/) or ☕ [Buy me a coffee](http://givebrian.coffee/)
+
 ## Installation
 
 ```shell
